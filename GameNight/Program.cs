@@ -8,6 +8,8 @@
 * and adds tonight's result to a history that grows every week.
 */
 
+using System.ComponentModel;
+
 const string PLAYERS_FILE = "players.txt";
 
 const string POINTS_FILE = "points.txt";
@@ -23,6 +25,27 @@ Directory.SetCurrentDirectory(projectFolder);
 
 Console.WriteLine("=== GAME NIGHT LEADERBOARD ===");
 
+//History
+string[] history = File.ReadAllLines(HISTORY_FILE);
+
+int tonightNumber = history.Length + 1;
+
+if (history.Length == 0)
+{
+    Console.WriteLine("No Nights played yet.");
+}
+else
+{
+    Console.WriteLine("Nights played: " + history.Length);
+
+    foreach (string night in history)
+    {
+        Console.WriteLine(" " + night);
+    }
+}
+
+Console.WriteLine("Tonight is Night " + tonightNumber + ".");
+Console.WriteLine();
 
 
 // Part 1 The Standings
@@ -63,7 +86,7 @@ for (int i = 0; i < players.Length; i++)
     }
 
     //change to string
-    int season = Convert.ToInt32(points[i]+ tonight);
+    int season = Convert.ToInt32(points[i])+ tonight;
     points[i] = season.ToString();
 
     if (tonight > bestTonight)
@@ -82,7 +105,11 @@ Console.WriteLine();
 File.WriteAllLines(POINTS_FILE, points);
 Console.WriteLine("Saved " + POINTS_FILE + ".");
 
+//Part 3
 
+string[] entry = { HistoryEntry(tonightNumber, winnerTonight, bestTonight) };
+File.AppendAllLines(HISTORY_FILE, entry);
+Console.WriteLine("Added to " + HISTORY_FILE + ": " + entry[0]);
 
 
 //Methods
@@ -115,3 +142,7 @@ static int TotalPoints(string[] points)
     return total;
 }
  
+static string HistoryEntry(int night, string winner, int points)
+{
+    return "Night " + night + ": " + winner + " won with " + points + " points";
+}
