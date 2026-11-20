@@ -43,6 +43,47 @@ Console.WriteLine("Season total: " + TotalPoints(points));
 Console.WriteLine();
 
 
+//Part 2 
+
+//starts below real score
+int bestTonight = -1;
+string winnerTonight = "";
+
+for (int i = 0; i < players.Length; i++)
+{
+    Console.Write("Points tonight for " + players[i] + ": ");
+    int tonight = Convert.ToInt32(Console.ReadLine());
+
+    //keep asking until the score is in the correct range
+    while (tonight < 0 || tonight > MAX_POINTS)
+    {
+        Console.WriteLine("Points must be from 0 to " + MAX_POINTS + ". ");
+        Console.Write("Points tonight for " + players[i] + ": ");
+        tonight = Convert.ToInt32(Console.ReadLine());
+    }
+
+    //change to string
+    int season = Convert.ToInt32(points[i]+ tonight);
+    points[i] = season.ToString();
+
+    if (tonight > bestTonight)
+    {
+        
+        bestTonight = tonight;
+        winnerTonight = players[i];
+    }
+
+}
+
+Console.WriteLine("Tonight's winner: " + winnerTonight + " with " + bestTonight);
+Console.WriteLine();
+
+//saves
+File.WriteAllLines(POINTS_FILE, points);
+Console.WriteLine("Saved " + POINTS_FILE + ".");
+
+
+
 
 //Methods
 
