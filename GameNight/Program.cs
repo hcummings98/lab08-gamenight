@@ -73,3 +73,4 @@ static int TotalPoints(string[] points)
     }
     return total;
 }
+ 
