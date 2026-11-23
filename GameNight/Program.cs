@@ -8,7 +8,7 @@
 * and adds tonight's result to a history that grows every week.
 */
 
-using System.ComponentModel;
+
 
 const string PLAYERS_FILE = "players.txt";
 
@@ -29,7 +29,7 @@ Console.WriteLine("=== GAME NIGHT LEADERBOARD ===");
 string[] history = File.ReadAllLines(HISTORY_FILE);
 
 int tonightNumber = history.Length + 1;
-
+//night counter
 if (history.Length == 0)
 {
     Console.WriteLine("No Nights played yet.");
@@ -37,7 +37,7 @@ if (history.Length == 0)
 else
 {
     Console.WriteLine("Nights played: " + history.Length);
-
+//every night in the past is printed
     foreach (string night in history)
     {
         Console.WriteLine(" " + night);
